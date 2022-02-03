@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Header } from './components/Header';
 import Tasks from './components/Tasks';
+import { AddTask } from './components/AddTask';
 function App() {
   //we place this list here, so we can use it in another components as well
   const [tasks, setTasks] = useState([
@@ -23,12 +24,16 @@ function App() {
       reminder: false,
     },
   ]);
+
   //Delete Task
+
   const deleteTask = (id) => {
     //I wanna show only the tasks that have a different id (because this id corresponds to a 'deleted' task)
     setTasks(tasks.filter((task) => task.id !== id));
   };
+
   //Toggle Reminder
+  
   const toggleReminder = (id) => {
     setTasks(
       tasks.map((task) =>
@@ -40,6 +45,7 @@ function App() {
   return (
     <div className="container">
       <Header></Header>
+      <AddTask></AddTask>
       {tasks.length > 0 ? (
         <Tasks
           tasks={tasks}
