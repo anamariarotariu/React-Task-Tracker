@@ -3,7 +3,7 @@ export const Button = ({ color, text, onClick }) => {
   return (
     <button
       onClick={onClick}
-      className="btn"
+      className='btn'
       style={{ backgroundColor: color }}
     >
       {text}
