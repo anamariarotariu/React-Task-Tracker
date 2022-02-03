@@ -23,11 +23,16 @@ function App() {
       reminder: false,
     },
   ]);
+  //Delete Task
+  const deleteTask = (id) => {
+    //I wanna show only the tasks that have a different id (because this id corresponds to a 'deleted' task)
+    setTasks(tasks.filter((task) => task.id !== id));
+  };
   //whatever you return, has to have a single parent
   return (
     <div className="container">
       <Header></Header>
-      <Tasks tasks={tasks}></Tasks>
+      <Tasks tasks={tasks} onDelete={deleteTask}></Tasks>
     </div>
   );
 }
