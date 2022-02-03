@@ -28,11 +28,27 @@ function App() {
     //I wanna show only the tasks that have a different id (because this id corresponds to a 'deleted' task)
     setTasks(tasks.filter((task) => task.id !== id));
   };
+  //Toggle Reminder
+  const toggleReminder = (id) => {
+    setTasks(
+      tasks.map((task) =>
+        task.id === id ? { ...task, reminder: !task.reminder } : task
+      )
+    );
+  };
   //whatever you return, has to have a single parent
   return (
     <div className="container">
       <Header></Header>
-      <Tasks tasks={tasks} onDelete={deleteTask}></Tasks>
+      {tasks.length > 0 ? (
+        <Tasks
+          tasks={tasks}
+          onDelete={deleteTask}
+          onToggle={toggleReminder}
+        ></Tasks>
+      ) : (
+        'No Task To Show'
+      )}
     </div>
   );
 }
