@@ -11,6 +11,12 @@
       "text": "Food Shopping",
       "day": "Feb 10th at 6 PM",
       "reminder": false
+    },
+    {
+      "text": "Go to birthday party",
+      "day": "4th February at 7PM",
+      "reminder": false,
+      "id": 4
     }
   ]
 }
