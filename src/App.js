@@ -1,31 +1,20 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Header } from './components/Header';
 import Tasks from './components/Tasks';
 import { AddTask } from './components/AddTask';
 function App() {
   const [showAddTask, setShowAddTask] = useState(false);
   //we place this list here, so we can use it in another components as well
-  const [tasks, setTasks] = useState([
-    {
-      id: 1,
-      text: 'Doctors appointment',
-      day: 'Feb 5th at 2:30 PM',
-      reminder: true,
-    },
-    {
-      id: 2,
-      text: 'Meeting at school',
-      day: 'Feb 6th at 1:30 PM',
-      reminder: true,
-    },
-    {
-      id: 3,
-      text: 'Food Shopping',
-      day: 'Feb 10th at 6 PM',
-      reminder: false,
-    },
-  ]);
+  const [tasks, setTasks] = useState([]);
 
+  useEffect(() => {
+    const fetchTasks = async () => {
+      const res = await fetch('http://localhost:5000/tasks');
+      const data = await res.json();
+      console.log(data);
+    };
+    fetchTasks();
+  }, []);
   //Delete Task
 
   const deleteTask = (id) => {
