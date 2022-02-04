@@ -33,7 +33,7 @@ function App() {
   };
 
   //Toggle Reminder
-  
+
   const toggleReminder = (id) => {
     setTasks(
       tasks.map((task) =>
@@ -41,11 +41,19 @@ function App() {
       )
     );
   };
+
+  //Add Task
+
+  const addTask = (task) => {
+    const id = Math.floor(Math.random() * 100000) + 1;
+    const newTask = { id, ...task };
+    setTasks([...tasks, newTask]);
+  };
   //whatever you return, has to have a single parent
   return (
     <div className="container">
       <Header></Header>
-      <AddTask></AddTask>
+      <AddTask onAdd={addTask}></AddTask>
       {tasks.length > 0 ? (
         <Tasks
           tasks={tasks}
