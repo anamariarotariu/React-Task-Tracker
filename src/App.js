@@ -1,7 +1,10 @@
 import { useState, useEffect } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Header } from './components/Header';
 import Tasks from './components/Tasks';
 import { AddTask } from './components/AddTask';
+import Footer from './components/Footer';
+import About from './components/About';
 function App() {
   const [showAddTask, setShowAddTask] = useState(false);
   //we place this list here, so we can use it in another components as well
@@ -75,22 +78,29 @@ function App() {
   };
   //whatever you return, has to have a single parent
   return (
-    <div className="container">
-      <Header
-        onAdd={() => setShowAddTask(!showAddTask)}
-        showAdd={showAddTask}
-      ></Header>
-      {showAddTask && <AddTask onAdd={addTask}></AddTask>}
-      {tasks.length > 0 ? (
-        <Tasks
-          tasks={tasks}
-          onDelete={deleteTask}
-          onToggle={toggleReminder}
-        ></Tasks>
-      ) : (
-        'No Task To Show'
-      )}
-    </div>
+    <BrowserRouter>
+      <div className="container">
+        <Header
+          onAdd={() => setShowAddTask(!showAddTask)}
+          showAdd={showAddTask}
+        ></Header>
+        {showAddTask && <AddTask onAdd={addTask}></AddTask>}
+        {tasks.length > 0 ? (
+          <Tasks
+            tasks={tasks}
+            onDelete={deleteTask}
+            onToggle={toggleReminder}
+          ></Tasks>
+        ) : (
+          'No Task To Show'
+        )}
+        <Routes>
+          <Route path="/about" component={About}></Route>
+        </Routes>
+
+        <Footer></Footer>
+      </div>
+    </BrowserRouter>
   );
 }
 
