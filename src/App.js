@@ -3,6 +3,7 @@ import { Header } from './components/Header';
 import Tasks from './components/Tasks';
 import { AddTask } from './components/AddTask';
 function App() {
+  const [showAddTask, setShowAddTask] = useState(false);
   //we place this list here, so we can use it in another components as well
   const [tasks, setTasks] = useState([
     {
@@ -52,8 +53,11 @@ function App() {
   //whatever you return, has to have a single parent
   return (
     <div className="container">
-      <Header></Header>
-      <AddTask onAdd={addTask}></AddTask>
+      <Header
+        onAdd={() => setShowAddTask(!showAddTask)}
+        showAdd={showAddTask}
+      ></Header>
+      {showAddTask && <AddTask onAdd={addTask}></AddTask>}
       {tasks.length > 0 ? (
         <Tasks
           tasks={tasks}
