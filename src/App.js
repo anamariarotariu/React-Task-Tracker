@@ -8,17 +8,26 @@ function App() {
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
-    const fetchTasks = async () => {
-      const res = await fetch('http://localhost:5000/tasks');
-      const data = await res.json();
-      console.log(data);
+    const getTasks = async () => {
+      const tasksFromServer = await fetchTasks();
+      setTasks(tasksFromServer);
     };
-    fetchTasks();
+    getTasks();
   }, []);
+
+  //Fetch task from json-server
+
+  const fetchTasks = async () => {
+    const res = await fetch('http://localhost:5000/tasks');
+    const data = await res.json();
+    return data;
+  };
   //Delete Task
 
-  const deleteTask = (id) => {
-    //I wanna show only the tasks that have a different id (because this id corresponds to a 'deleted' task)
+  const deleteTask = async (id) => {
+    await fetch(`http://localhost:5000/tasks/${id}`, {
+      method: 'DELETE',
+    });
     setTasks(tasks.filter((task) => task.id !== id));
   };
 
@@ -34,10 +43,16 @@ function App() {
 
   //Add Task
 
-  const addTask = (task) => {
-    const id = Math.floor(Math.random() * 100000) + 1;
-    const newTask = { id, ...task };
-    setTasks([...tasks, newTask]);
+  const addTask = async (task) => {
+    const res = await fetch('http://localhost:5000/tasks', {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify(task),
+    });
+    const data = res.json();
+    setTasks([...tasks, data]);
   };
   //whatever you return, has to have a single parent
   return (
